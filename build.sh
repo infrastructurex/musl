@@ -23,7 +23,7 @@ echo Packaging musl ...
 mkdir -p /export/lib
 cd /export || exit
 
-cp /build/musl/lib/libc.so lib/ld-musl-x86_64.so.1
+cp /build/musl/lib/libc.so "lib/libc-musl-$LINUX_ARCH.so.1"
 
 mkdir legal
 cat > legal/musl<< EOF

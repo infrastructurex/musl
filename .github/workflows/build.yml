@@ -12,8 +12,10 @@ jobs:
       matrix:
         include:
           - arch: "x64"
+            linux-arch: "x86_64"
             docker-arch: "amd64"
           - arch: "arm64"
+            linux-arch: "aarch64"
             docker-arch: "arm64"
     steps:
       - uses: actions/checkout@v3
@@ -31,7 +33,7 @@ jobs:
           echo "Platforms: ${{ steps.buildx.outputs.platforms }}"
       - name: Build
         run: |
-          docker buildx build --build-arg ARCH=${{ matrix.arch }} --build-arg TAG=${{ github.run_number }} --platform=linux/${{ matrix.docker-arch }} --output type=local,dest=build .
+          docker buildx build --build-arg ARCH=${{ matrix.arch }} --build-arg LINUX_ARCH=${{ matrix.linux-arch }} --build-arg TAG=${{ github.run_number }} --platform=linux/${{ matrix.docker-arch }} --output type=local,dest=build .
       - name: Upload artifact
         uses: actions/upload-artifact@v3
         with:
