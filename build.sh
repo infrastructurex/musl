@@ -22,7 +22,8 @@ echo Packaging musl ...
 mkdir -p /export/lib
 cd /export || exit
 
-cp /build/musl/lib/libc.so "lib/libc-musl-$LINUX_ARCH.so.1"
+cp /build/musl/lib/libc.so "lib/ld-musl-$LINUX_ARCH.so.1"
+ln -s "/lib/ld-musl-$LINUX_ARCH.so.1" "lib/libc.musl-$LINUX_ARCH.so.1"
 
 mkdir legal
 cat > legal/musl<< EOF
@@ -33,6 +34,6 @@ License :
 
 EOF
 cat /build/musl/COPYRIGHT >> legal/musl
-gzip /legal/musl
+gzip legal/musl
 
 tar -czvf /musl.tar.gz *
