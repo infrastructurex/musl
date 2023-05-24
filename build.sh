@@ -15,15 +15,24 @@ echo Building musl ...
 readonly prefix_dir=/dependencies/musl
 mkdir -p $prefix_dir
 cd /build/musl || exit
-./configure --prefix=$prefix_dir --enable-wrapper=gcc
-make "-j$(nproc)" install || exit
+./configure
+make "-j$(nproc)" || exit
+strip lib/libc.so
 
 echo Packaging musl ...
-cd $prefix_dir || exit
+mkdir -p /export/lib
+cd /export || exit
 
-cp /build/musl/COPYRIGHT ./LICENSE
-echo "Source  : $SOURCE" > ./SOURCE
-echo "Version : $VERSION" >> ./SOURCE
-echo "Package : https://github.com/vmify/musl/musl/download/$TAG/musl-$ARCH-$TAG.tar.gz" >> ./SOURCE
+cp /build/musl/lib/libc.so lib/ld-musl-x86_64.so.1
+
+mkdir legal
+cat > legal/musl<< EOF
+Source  : $SOURCE
+Version : $VERSION
+Package : https://github.com/vmify/musl/musl/download/$TAG/musl-$ARCH-$TAG.tar.gz
+License :
+
+EOF
+cat /build/musl/COPYRIGHT >> legal/musl
 
 tar -czvf /musl.tar.gz *
