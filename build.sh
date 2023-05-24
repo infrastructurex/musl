@@ -12,12 +12,11 @@ tar -xf musl-$VERSION.tar.gz
 mv musl-$VERSION musl
 
 echo Building musl ...
-readonly prefix_dir=/dependencies/musl
-mkdir -p $prefix_dir
 cd /build/musl || exit
 ./configure
 make "-j$(nproc)" || exit
 strip lib/libc.so
+ldd lib/libc.so
 
 echo Packaging musl ...
 mkdir -p /export/lib
@@ -34,5 +33,6 @@ License :
 
 EOF
 cat /build/musl/COPYRIGHT >> legal/musl
+gzip /legal/musl
 
 tar -czvf /musl.tar.gz *
