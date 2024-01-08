@@ -29,7 +29,7 @@ mkdir legal
 cat > legal/musl<< EOF
 Source  : $SOURCE
 Version : $VERSION
-Package : https://github.com/vmify/musl/musl/download/$TAG/musl-$ARCH-$TAG.tar.gz
+Package : https://github.com/infrastructurex/musl/musl/download/$TAG/musl-$ARCH-$TAG.tar.gz
 License :
 
 EOF
