@@ -1,6 +1,6 @@
 #!/usr/bin/env sh
 
-VERSION=1.2.4
+VERSION=1.2.5
 SOURCE=https://musl.libc.org/releases/musl-$VERSION.tar.gz
 
 echo Downloading musl "$VERSION" ...
